@@ -15,15 +15,15 @@ namespace RyanBH.GAD176.Progression.Stats
         {
             statName = name;
             baseValue = baseAmount;
-            Debug.Log("New Stat: " + statName + " | Base Stat: " + baseValue);
         }
 
         /// <summary>
         /// Calculate the current value of the stat.
         /// </summary>
-        public int CalculateCurrentValue()
+        public void CalculateCurrentValue(int characterLevel)
         {
-            return 0;
+            currentValue = (((2 * baseValue) * characterLevel) / 100) + 1;
+            Debug.Log(statName + ": " + currentValue);
         }
     }
 }

@@ -52,11 +52,16 @@ namespace RyanBH.Progression.Stats
         /// Decreases the resource Stat by a certain amount.
         /// </summary>
         /// <param name="amountUsed"> The amount of resource Stat used.</param>
-        public void UseResource(int amountUsed)
+        public bool UseResource(int amountUsed)
         {
             if (ResourceCheck(amountUsed) != false)
             {
                 leftValue -= amountUsed;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace RyanBH.Progression.LevelBar
@@ -7,7 +6,7 @@ namespace RyanBH.Progression.LevelBar
     public class PlayerLevelBar
     {
         
-        /// <summary> Your current level. </summary>
+        /// <summary> The current level. </summary>
         private int level;
         /// <summary> The current XP amount. </summary>
         private int xpAmount;

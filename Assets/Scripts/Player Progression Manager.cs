@@ -11,19 +11,19 @@ namespace RyanBH.Progression.Manager
     public class PlayerProgressionManager : MonoBehaviour
     {
         #region Variables
-        private PlayerLevelBar levelMeter = new PlayerLevelBar(-1, -1, -1);
+        private PlayerLevelBar levelMeter = new(-1, -1, -1);
         
         #region Basic Stats: Replace with your own.
 
-        private Stat shenanigansStat = new Stat("Shenanigans", 100);
-        private Stat tomfooleryStat = new Stat("Tomfoolery", 90);
-        private Stat entertainmentStat = new Stat("Entertainment", 120);
-        private Stat mischiefStat = new Stat("Mischief", 50);
+        private Stat shenanigansStat = new("Shenanigans", 100);
+        private Stat tomfooleryStat = new("Tomfoolery", 90);
+        private Stat entertainmentStat = new("Entertainment", 120);
+        private Stat mischiefStat = new("Mischief", 50);
         
         #endregion
 
-        // Replace with your own resource Stat.
-        private ResourceStat anticsStat = new ResourceStat("Antics", 100);
+        // Replace with your own resource Stat(s).
+        private ResourceStat anticsStat = new("Antics", 100);
         #endregion
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace RyanBH.Progression.Manager
             anticsStat.FullyRestoreResource();
         }
 
-        // Update is called every frame, if the MonoBehaviour is enable.
+        // Update is called once every frame.
         private void Update()
         {
             //Sample level up call
@@ -65,10 +65,17 @@ namespace RyanBH.Progression.Manager
             //Sample attack
             if (Keyboard.current.tKey.wasPressedThisFrame)
             {
-                anticsStat.UseResource(1);
-                int damage;
-                damage = (70 * 2 * levelMeter.GetLevel() * tomfooleryStat.GetCurrentValue()) / 50;
-                Debug.Log("Tomfoolery damage dealt: " + damage);
+                if (anticsStat.UseResource(1) != false)
+                {
+                    int damage;
+                    damage = (70 * 2 * levelMeter.GetLevel() * tomfooleryStat.GetCurrentValue()) / 50;
+                    Debug.Log("Tomfoolery damage dealt: " + damage);
+
+                }
+                else
+                {
+                    Debug.LogWarning("Attack Failed");
+                }
                 anticsStat.GetLeftValue();
             }
         }

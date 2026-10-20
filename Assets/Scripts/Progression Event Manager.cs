@@ -1,11 +1,11 @@
-using RyanBH.Progression.Manager;
-using UnityEngine;
-using UnityEngine.Events;
+using System;
 
-public class ProgressionEventManager : MonoBehaviour
+namespace RyanBH.Progression.Events
 {
-    [SerializeField] private PlayerProgressionManager playerStats;
+    public static class ProgressionEventManager
+    {
+        // A sample Action tolet the UI and Stats interact.
+        public static Action<string, int, int> onAnticsUsed;
 
-    public static UnityEvent onAnticsUsed = new();
-
+    }
 }

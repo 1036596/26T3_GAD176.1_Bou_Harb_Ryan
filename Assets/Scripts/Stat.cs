@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace RyanBH.Progression.Stats
 {
-    #region Stat Class
-    /// <summary> Contains all variables and functions relating to a Stat. </summary>
+    /// <summary> Contains all variables and functions relating to a stat. </summary>
     public class Stat
     {
         protected string statName;
@@ -19,12 +18,28 @@ namespace RyanBH.Progression.Stats
             baseValue = baseAmount;
         }
 
-        /// <summary> Returns the current value of the Stat. </summary>
+        #region Get the variables
+
+        /// <summary> Returns the current value of the stat. </summary>
         public int GetCurrentValue()
         {
             return currentValue;
         }
         
+        /// <summary> Returns the name of the stat. </summary>
+        public string GetStatName()
+        {
+            return statName;
+        }
+
+        /// <summary> Reutrns the base value of the stat. </summary>
+        public int GetBaseValue()
+        {
+            return baseValue;
+        }
+        
+        #endregion
+
         /// <summary> Calculate the current value of the stat. </summary>
         /// <param name="characterLevel"> Replace with the level bar's GetLevel()</param>
         public void CalculateCurrentValue(int characterLevel)
@@ -33,5 +48,4 @@ namespace RyanBH.Progression.Stats
             Debug.Log(statName + ": " + currentValue);
         }
     }
-    #endregion
 }

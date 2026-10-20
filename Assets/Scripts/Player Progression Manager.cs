@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using RyanBH.Progression.Stats;
-using RyanBH.Progression.LevelBar;
 
 namespace RyanBH.Progression.Manager
 {
@@ -11,19 +9,21 @@ namespace RyanBH.Progression.Manager
     public class PlayerProgressionManager : MonoBehaviour
     {
         #region Variables
-        private PlayerLevelBar levelMeter = new(-1, -1, -1);
+        
+        private LevelBar.PlayerLevelBar levelMeter = new(-1, -1, -1);
         
         #region Basic Stats: Replace with your own.
 
-        private Stat shenanigansStat = new("Shenanigans", 100);
-        private Stat tomfooleryStat = new("Tomfoolery", 90);
-        private Stat entertainmentStat = new("Entertainment", 120);
-        private Stat mischiefStat = new("Mischief", 50);
+        private Stats.Stat shenanigansStat = new("Shenanigans", 100);
+        private Stats.Stat tomfooleryStat = new("Tomfoolery", 90);
+        private Stats.Stat entertainmentStat = new("Entertainment", 120);
+        private Stats.Stat mischiefStat = new("Mischief", 50);
         
         #endregion
 
         // Replace with your own resource Stat(s).
-        private ResourceStat anticsStat = new("Antics", 100);
+        private Stats.ResourceStat anticsStat = new("Antics", 100);
+        
         #endregion
 
         /// <summary>
@@ -39,13 +39,21 @@ namespace RyanBH.Progression.Manager
             anticsStat.CalculateCurrentValue(levelMeter.GetLevel());
         }
 
+        /// <summary> Invokes the onAnticsUsed with the name and values of Antics </summary>
+        private void InvokeAnticsUsedEvent()
+        {
+            Events.ProgressionEventManager.onAnticsUsed?.Invoke(anticsStat.GetStatName(), anticsStat.GetLeftValue(), anticsStat.GetCurrentValue());
+        }
+
         #region Unity Functions
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Start()
         {
             levelMeter.ResetLevelUpBar(30);
             CalculateAllStats();
             anticsStat.FullyRestoreResource();
+            InvokeAnticsUsedEvent();
         }
 
         // Update is called once every frame.
@@ -59,6 +67,7 @@ namespace RyanBH.Progression.Manager
                 {
                     CalculateAllStats();
                     anticsStat.FullyRestoreResource();
+                    InvokeAnticsUsedEvent();
                 }
             }
 
@@ -70,15 +79,15 @@ namespace RyanBH.Progression.Manager
                     int damage;
                     damage = (70 * 2 * levelMeter.GetLevel() * tomfooleryStat.GetCurrentValue()) / 50;
                     Debug.Log("Tomfoolery damage dealt: " + damage);
-
                 }
                 else
                 {
                     Debug.LogWarning("Attack Failed");
                 }
-                anticsStat.GetLeftValue();
+                InvokeAnticsUsedEvent();
             }
         }
+
         #endregion
     }
 }
